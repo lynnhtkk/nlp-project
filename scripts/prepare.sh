@@ -13,7 +13,7 @@ moses_scripts="$tools_dir/mosesdecoder/scripts"
 
 # Set the name of your sample file
 # We will use this to create .tok, .clean, and .tc files
-prefix="train.10k"
+prefix="train"
 
 # Set max sentence length for cleaning
 max_len=100
