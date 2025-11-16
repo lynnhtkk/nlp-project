@@ -13,10 +13,6 @@ bpe_scripts="tools/subword-nmt/subword_nmt"
 prefix="train"
 bpe_ops=10000 # number of bpe merge operations {num_operations} 
 
-# File Paths
-src_train_file="$data_dir/$prefix.tc.$src"
-tgt_train_file="$data_dir/$prefix.tc.$tgt"
-
 # Output BPE model (the merge rules)
 bpe_code_file="$output_dir/models/bpe-codes.$bpe_ops"
 
