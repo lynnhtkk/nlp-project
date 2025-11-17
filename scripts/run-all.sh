@@ -28,13 +28,13 @@ echo "Step 3: Running preprocessing pipeline..."
 echo "  - Running prepare.sh..."
 bash "$scripts_dir/prepare.sh"
 
-echo "  - Running segmentation-A.sh..."
-bash "$scripts_dir/segmentation-A.sh"
+# echo "  - Running segmentation-A.sh..."
+# bash "$scripts_dir/segmentation-A.sh"
 
-echo "  - Running run_morfessor.sh..."
-bash "$scripts_dir/run_morfessor.sh"
+# echo "  - Running run-morfessor.sh..."
+# bash "$scripts_dir/run-morfessor.sh"
 
-echo "  - Running segmentation-B.sh..."
-bash "$scripts_dir/segmentation-B.sh"
+# echo "  - Running segmentation-B.sh..."
+# bash "$scripts_dir/segmentation-B.sh"
 
-echo "All preprocessing steps completed!"
+# echo "All preprocessing steps completed!"

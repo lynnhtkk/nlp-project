@@ -61,7 +61,38 @@ for lang in $src $tgt; do
         > $output_file
 done
 
-# 5. final clean-up (deleting .tok, .clean files)
+# 5. split the 500k truecased data three ways (train, test, and valid)
+# Split ratio: train (98%), test (1%), valid (1%)
+for lang in $src $tgt; do
+    input_file="$data_dir/temp.tc.$lang"
+    cp "$data_dir/train.tc.$lang" $input_file
+    
+    # Get the total number of lines
+    total_lines=$(wc -l < "$input_file")
+    
+    # Calculate split sizes
+    train_size=$((total_lines * 98 / 100))
+    test_size=$((total_lines * 1 / 100))
+    # valid_size = remaining lines
+    
+    # Split the file
+    head -n $train_size $input_file > "$data_dir/$prefix.tc.$lang"
+    
+    # Extract test set (from line train_size+1 to train_size+test_size)
+    tail -n +$((train_size + 1)) $input_file | head -n $test_size > "$data_dir/test.tc.$lang"
+    
+    # Extract valid set (remaining lines)
+    tail -n +$((train_size + test_size + 1)) $input_file > "$data_dir/valid.tc.$lang"
+    
+    echo "Split $lang into:"
+    echo "  - train: $(wc -l < "$data_dir/train.tc.$lang") lines"
+    echo "  - test: $(wc -l < "$data_dir/test.tc.$lang") lines"
+    echo "  - valid: $(wc -l < "$data_dir/valid.tc.$lang") lines"
+done
+
+# 6. final clean-up (deleting .tok, .clean files)
+rm $data_dir/temp.tc.$src
+rm $data_dir/temp.tc.$tgt
 rm $data_dir/$prefix.tok.$src
 rm $data_dir/$prefix.tok.$tgt
 rm $data_dir/$prefix.clean.$src
