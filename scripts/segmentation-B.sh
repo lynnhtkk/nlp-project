@@ -25,11 +25,13 @@ python3 $bpe_scripts/learn_joint_bpe_and_vocab.py \
     --write-vocabulary "$output_dir/models/vocab.$src" "$output_dir/models/vocab.$tgt"
 
 # 2. Apply BPE with Vocabulary Filtering
-for lang in $src $tgt; do
-    python3 $bpe_scripts/apply_bpe.py \
-        -c $bpe_code_file \
-        --vocabulary "$output_dir/models/vocab.$lang" \
-        --vocabulary-threshold 50 \
-        < "$data_dir/$prefix.morf.$lang" \
-        > "$output_dir/data/$prefix.bpe.$lang"
+for split in train test valid; do
+    for lang in $src $tgt; do
+        python3 $bpe_scripts/apply_bpe.py \
+            -c $bpe_code_file \
+            --vocabulary "$output_dir/models/vocab.$lang" \
+            --vocabulary-threshold 50 \
+            < "$data_dir/$split.morf.$lang" \
+            > "$output_dir/data/$split.bpe.$lang"
+    done
 done

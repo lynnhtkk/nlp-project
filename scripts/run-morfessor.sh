@@ -23,11 +23,13 @@ done
 
 # 2. Apply Morfessor Models (Segmentation)
 # We apply the trained models to the *same* data to create the segmented .morf files.
-for lang in $src $tgt; do
-    morfessor-segment -l "$models_dir/morfessor-model.$lang"\
-        "$data_dir/$prefix.tc.$lang"\
-        -o "$output_dir/data/train.morf.$lang" \
-        --output-format '{analysis} ' \
-        --output-format-separator "## " \
-        --output-newlines
+for split in train test valid; do
+    for lang in $src $tgt; do
+        morfessor-segment -l "$models_dir/morfessor-model.$lang"\
+            "$data_dir/$split.tc.$lang" \
+            -o "$output_dir/data/$split.morf.$lang" \
+            --output-format '{analysis} ' \
+            --output-format-separator "## " \
+            --output-newlines
+    done
 done
