@@ -5,3 +5,7 @@ git clone --recurse-submodules https://github.com/lynnhtkk/nlp-project.git
 ```
 
 If you forget, you can run `git submodule update --init` inside the cloned project.
+
+---
+
+We are using [Europarlv8 Finnish-English](https://www.statmt.org/wmt18/translation-task.html) parallel datset.
